@@ -1,3 +1,4 @@
+import { AuthService } from './../../core/services/auth.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm!: FormGroup
 
-  constructor(private route: Router, private fb: FormBuilder) {
+  constructor(private route: Router, private fb: FormBuilder, private authService: AuthService) {
 
   }
 
@@ -42,13 +43,14 @@ controlForm() {
   }
 }
 
-  onSubmit () {
-    if(this.loginForm.value.email === "ivan@gmail.com" && this.loginForm.value.password === "123456") {
-      console.log('está valido')
-      this.route.navigate(['/home'])
-    }
-     else {
-      console.log('está invalido')
+ async onSubmit () {
+    try {
+      const result = await this.authService.login(this.loginForm);
+      console.log(`Login efetuado: ${result}`);
+
+      this.route.navigate(['']);
+    } catch (error) {
+      console.log(error)
     }
   }
 

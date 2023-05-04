@@ -19,11 +19,11 @@
             <div class="form-outline mb-4">
               <input type="password" formControlName="password" id="form1Example23"  placeholder="Senha" class="form-control form-control-lg" />
               <div class="login__error-form" *ngIf="loginForm.get('password')?.errors?.['required']&&loginForm.get('password')?.touched">
-                *Senha obrigatório
+                *Senha obrigatória
               </div>
             </div>
   
-            <button  type="submit"  class="btn btn-primary btn-login" (click)="onSubmit()">
+            <button [disabled]="loginForm.invalid" type="submit"  class="btn btn-primary btn-login" (click)="onSubmit()">
               <span>
                   Entrar
               </span>
