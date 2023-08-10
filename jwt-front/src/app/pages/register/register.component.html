@@ -1,0 +1,50 @@
+<section class="vh-100">
+    <div class="container h-100">
+      <div class="register__content row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-8 col-lg-7 col-xl-6">
+          <img src="assets/imgs/register-img.svg"
+            class="img-fluid" alt="Phone image">
+        </div>
+        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1" >
+          <form [formGroup]="registerForm">
+
+            <div class="form-outline mb-4">
+                <input type="email" id="form1Example13" formControlName="name" placeholder="Nome" class="form-control form-control-lg" />
+                  <div class="register__error-form" *ngIf="registerForm.get('name')?.errors?.['required']&&registerForm.get('name')?.touched">
+                    *Nome obrigatório
+                  </div>
+              </div>
+
+            <div class="form-outline mb-4">
+              <input type="email" id="form1Example13" formControlName="email" placeholder="Email" class="form-control form-control-lg" />
+                <div class="register__error-form" *ngIf="registerForm.get('email')?.errors?.['required']&&registerForm.get('email')?.touched">
+                  *Email obrigatório
+                </div>
+            </div>
+  
+     
+            <div class="form-outline mb-4">
+              <input type="password" formControlName="password" id="form1Example23"  placeholder="Senha" class="form-control form-control-lg" />
+              <div class="register__error-form" *ngIf="registerForm.get('password')?.errors?.['required']&&registerForm.get('password')?.touched">
+                *Senha obrigatória
+              </div>
+            </div>
+  
+            <button [disabled]="registerForm.invalid" type="submit"  class="btn btn-primary btn-register" (click)="onSubmit()">
+              <span>
+                  Cadastrar
+              </span>
+              <span>
+                <img class="register__arrow" src="assets/imgs/arrowRight.svg" alt="seta para direita">
+              </span> 
+            </button>
+  
+          </form>
+
+          <div class="register__existitente">
+            <span>Já possui cadastro? Entre com o </span><a routerLink="/login">login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

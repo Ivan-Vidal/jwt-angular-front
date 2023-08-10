@@ -2,19 +2,19 @@
     padding: 0 24px;
 }
 
-.login__title {
+.register__title {
     text-align: center;
     margin: 20px 0;
 }
 
-.login__error-form {
+.register__error-form {
     color: #ff0000;
     text-align: inherit;
     font-size: 12px;
     font-weight: 600;
 }
 
-.btn-login {
+.btn-register {
     display: flex;
     width: 100%;
     align-items: center;
@@ -27,20 +27,20 @@
     transition: background .3s;
 }
 
-.btn-login:hover {
+.btn-register:hover {
     background-color: #1266f1
 }
 
-.login__arrow {
+.register__arrow {
     width: 24PX;
 }
 
-.login__existitente {
+.register__existitente {
     text-align: center;
 }
 
 @media(max-width: 678px) {
-    .login__content {
+    .register__content {
         justify-content: space-between;
     }
 }
