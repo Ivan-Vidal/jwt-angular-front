@@ -30,7 +30,7 @@
               </div>
             </div>
   
-            <button [disabled]="registerForm.invalid" type="submit"  class="btn btn-primary btn-register" (click)="onSubmit()">
+            <button [disabled]="registerForm.invalid" type="submit"  class="btn btn-primary btn-register" (click)="onSubmit(registerForm.value)">
               <span>
                   Cadastrar
               </span>

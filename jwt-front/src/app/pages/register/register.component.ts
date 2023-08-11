@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IUser } from 'src/app/core/models/user.model';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { RegisterService } from 'src/app/core/services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -9,9 +11,10 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  response: any = ''
 
   registerForm!: FormGroup
-  constructor(private route: Router, private fb: FormBuilder, private authService: AuthService) {
+  constructor(private route: Router, private fb: FormBuilder, private authService: AuthService, private registerService: RegisterService) {
 
   }
 
@@ -38,14 +41,12 @@ formValid() {
 } 
 
 
-  async onSubmit () {
-    try {
-      const result = await this.authService.login(this.registerForm);
-      console.log(`Login efetuado: ${result}`);
-
-      this.route.navigate(['']);
-    } catch (error) {
-      console.log(error)
-    }
+  async onSubmit (form: IUser) {
+      this.registerService.registerUser(form).subscribe(
+        (result: any) =>  this.response = result
+      )
+      console.log(this.response)
+      // const result = await this.authService.login(this.registerForm);
+      // console.log(`Login efetuado: ${result}`);
   }
 }
