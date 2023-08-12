@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/core/models/user.model';
 import { LoginService } from 'src/app/core/services/login.service';
+import { SweetAlertService } from 'src/app/core/services/sweet-alert.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent {
   loginForm!: FormGroup
   response: {} = {}
 
-  constructor(private route: Router, private fb: FormBuilder, private loginService: LoginService) {
+  constructor(private route: Router, private fb: FormBuilder, private loginService: LoginService, private sweetAlertS: SweetAlertService) {
 
   }
 
@@ -29,22 +30,8 @@ export class LoginComponent {
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', {validators: [Validators.required]}),
     });
-}
 
-
-formValid() {
-  if(this.loginForm.validator) {
-    return true
-  } else {
-    return false
-  }
 } 
-
-controlForm() {
-  if (this.loginForm.controls) {
-    
-  }
-}
 
  async onSubmit (form: IUser) {
 
@@ -54,12 +41,12 @@ controlForm() {
       console.log(result)
     },
     error => {
+      this.sweetAlertS.error('Verifique os dados digitados','OPS!')
+
       console.log(error.message)
     }
 
     )
-    
-    console.log(this.response)
   }
 
 }

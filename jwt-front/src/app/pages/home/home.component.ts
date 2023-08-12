@@ -28,5 +28,10 @@ message = ''
   }
 
 
+  logout() {
+    
+  }
+
+
 
 }

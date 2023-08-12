@@ -8,10 +8,15 @@
 
 .home__content-img {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
+}
+
+.home__content-img h3 {
+   margin-top: 40px;
 }
 
 .home__content-img img {
@@ -19,7 +24,13 @@
     margin-top: 110px;
 }
 
+.navbar-brand {
+    color: white;
+}
+
 .footer {
+    display: flex;
+    justify-content: center;
     position: absolute;
     bottom: 0;
     width: 100%;
