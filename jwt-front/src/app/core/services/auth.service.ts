@@ -13,4 +13,9 @@ export class AuthService {
   authUser():Observable<any> {
       return this.http.get<any>(`${this.urlBase}/user`, {withCredentials: true} );
     }
+
+    logout() {
+      return this.http.get<any>(`${this.urlBase}/logout`, {withCredentials: true} );
+
+    }
   }
