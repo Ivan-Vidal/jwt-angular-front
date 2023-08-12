@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Emitters } from '../core/emitters/emitters';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
 
 
@@ -10,7 +10,7 @@ import { AuthService } from '../core/services/auth.service';
 })
 export class AuthGuard implements CanActivate {
 
- token = false
+ token: boolean = false
 
   constructor(private route: Router, private authService: AuthService,) { }
 
@@ -20,19 +20,24 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-        this.authService.authUser().subscribe(
-          res => {
-            if(res._id > 0) {
-              this.token = true
-            }
-          },
-          error => {
-            this.token = false
+        // Emitters.authEmitters.subscribe(
+        //   (auth: boolean) =>  {
+        //     this.token =  auth
+        //   }
+        // )
+
+      if(this.token === false) {
+        Emitters.authEmitters.subscribe(
+          (auth: boolean) =>  {
+            this.token =  auth
           }
         )
-      if(this.token) {
+        return this.token
+      } 
+
+      if(this.token){
         return true
-      } else {
+      }else {
         this.route.navigate(['/login'])
         return false
       }

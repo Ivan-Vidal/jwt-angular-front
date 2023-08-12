@@ -15,7 +15,7 @@ export class AuthService {
     }
 
     logout() {
-      return this.http.get<any>(`${this.urlBase}/logout`, {withCredentials: true} );
+      return this.http.post<any>(`${this.urlBase}/logout`, {}, {withCredentials: true} );
 
     }
   }

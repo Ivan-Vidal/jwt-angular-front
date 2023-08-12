@@ -8,7 +8,7 @@ import { Emitters } from './core/emitters/emitters';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full' },
-  {path: 'home', component: HomeComponent, },
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent },
   {path: '**', component: LoginComponent },

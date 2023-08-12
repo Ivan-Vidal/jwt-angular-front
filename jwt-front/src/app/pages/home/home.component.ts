@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Emitters } from 'src/app/core/emitters/emitters';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { SweetAlertService } from 'src/app/core/services/sweet-alert.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class HomeComponent {
 message = ''
-  constructor (private authService: AuthService){
+  constructor (private authService: AuthService, private sweetAlertS: SweetAlertService){
 
   }
 
@@ -30,7 +31,12 @@ message = ''
 
 
   logout() {
-    
+    this.authService.logout().subscribe(
+      res => {
+        this.sweetAlertS.error('Sua sessão expirou','OPS!')
+        Emitters.authEmitters.emit(false)
+      }
+    )
   }
 
 
