@@ -2,6 +2,8 @@ import { AuthService } from './../../core/services/auth.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IUser } from 'src/app/core/models/user.model';
+import { LoginService } from 'src/app/core/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +12,9 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginForm!: FormGroup
+  response: {} = {}
 
-  constructor(private route: Router, private fb: FormBuilder, private authService: AuthService) {
+  constructor(private route: Router, private fb: FormBuilder, private loginService: LoginService) {
 
   }
 
@@ -43,15 +46,20 @@ controlForm() {
   }
 }
 
- async onSubmit () {
-    try {
-      const result = await this.authService.login(this.loginForm);
-      console.log(`Login efetuado: ${result}`);
+ async onSubmit (form: IUser) {
 
-      this.route.navigate(['']);
-    } catch (error) {
-      console.log(error)
+    this.loginService.login(form).subscribe(
+    result => {
+      this.route.navigate(['/home'])
+      console.log(result)
+    },
+    error => {
+      console.log(error.message)
     }
+
+    )
+    
+    console.log(this.response)
   }
 
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { IUser } from 'src/app/core/models/user.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RegisterService } from 'src/app/core/services/register.service';
+import { SweetAlertService } from 'src/app/core/services/sweet-alert.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ export class RegisterComponent {
   response: any = ''
 
   registerForm!: FormGroup
-  constructor(private route: Router, private fb: FormBuilder, private authService: AuthService, private registerService: RegisterService) {
+  constructor(private route: Router, private fb: FormBuilder, private sweetAlertS: SweetAlertService, private registerService: RegisterService) {
 
   }
 
@@ -43,10 +44,15 @@ formValid() {
 
   async onSubmit (form: IUser) {
       this.registerService.registerUser(form).subscribe(
-        (result: any) =>  this.response = result
+        (result: any) =>  { 
+          this.response = result
+          this.sweetAlertS.success('Cadastro Realizado com Sucesso!','Cadastrado!')
+          setTimeout(() => {
+            this.route.navigate(['/login'])
+          }, 3000);
+        }
+        
       )
       console.log(this.response)
-      // const result = await this.authService.login(this.registerForm);
-      // console.log(`Login efetuado: ${result}`);
   }
 }

@@ -23,7 +23,7 @@
               </div>
             </div>
   
-            <button [disabled]="loginForm.invalid" type="submit"  class="btn btn-primary btn-login" (click)="onSubmit()">
+            <button [disabled]="loginForm.invalid" type="submit"  class="btn btn-primary btn-login" (click)="onSubmit(loginForm.value)">
               <span>
                   Entrar
               </span>

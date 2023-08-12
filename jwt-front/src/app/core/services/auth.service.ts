@@ -1,17 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  urlBase = 'http://localhost:8000/api'
+  
+  constructor(private http: HttpClient) { }
 
-  constructor(http: HttpClient) { }
-
-  login(user: any) {
-    return new Promise((resolve) => {
-      window.localStorage.setItem('token', 'meu-token')
-      resolve(true)
-    })
+  authUser():Observable<any> {
+      return this.http.get<any>(`${this.urlBase}/user`, {withCredentials: true} );
+    }
   }
-}
