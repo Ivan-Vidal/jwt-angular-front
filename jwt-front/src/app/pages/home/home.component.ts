@@ -16,6 +16,7 @@ message = ''
   ngOnInit() {
     this.authService.authUser().subscribe(
       res => {
+        console.log(res)
        this.message  = `Olá ${res.name} seja bem-vindo!`
        Emitters.authEmitters.emit(true)
       },
