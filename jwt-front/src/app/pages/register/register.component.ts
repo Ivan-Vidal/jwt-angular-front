@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/core/models/user.model';
-import { AuthService } from 'src/app/core/services/auth.service';
+
 import { RegisterService } from 'src/app/core/services/register.service';
 import { SweetAlertService } from 'src/app/core/services/sweet-alert.service';
 
@@ -12,7 +12,7 @@ import { SweetAlertService } from 'src/app/core/services/sweet-alert.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  response: any = ''
+  response!: IUser
 
   registerForm!: FormGroup
   constructor(private route: Router, private fb: FormBuilder, private sweetAlertS: SweetAlertService, private registerService: RegisterService) {
@@ -44,7 +44,7 @@ formValid() {
 
   async onSubmit (form: IUser) {
       this.registerService.registerUser(form).subscribe(
-        (result: any) =>  { 
+        (result: IUser) =>  { 
           this.response = result
           this.sweetAlertS.success('Cadastro Realizado com Sucesso!','Cadastrado!')
           setTimeout(() => {

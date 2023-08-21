@@ -23,6 +23,7 @@ message = ''
       },
       error => {
         this.message = 'Usuário nao autenticado'
+        console.log(error)
        Emitters.authEmitters.emit(false)
 
       }
@@ -34,6 +35,7 @@ message = ''
     this.authService.logout().subscribe(
       res => {
         this.sweetAlertS.error('Sua sessão expirou','OPS!')
+        console.log(res)
         Emitters.authEmitters.emit(false)
       }
     )

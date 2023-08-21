@@ -1,4 +1,3 @@
-import { AuthService } from './../../core/services/auth.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,7 +12,7 @@ import { SweetAlertService } from 'src/app/core/services/sweet-alert.service';
 })
 export class LoginComponent {
   loginForm!: FormGroup
-  response: {} = {}
+  response = {}
 
   constructor(private route: Router, private fb: FormBuilder, private loginService: LoginService, private sweetAlertS: SweetAlertService) {
 

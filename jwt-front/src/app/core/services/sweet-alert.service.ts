@@ -6,7 +6,9 @@ import Swal, { SweetAlertIcon} from 'sweetalert2'
 })
 export class SweetAlertService {
 
-  constructor() { }
+  constructor() {
+    // do nothing.
+}
 
 
   public success(message: string, title: string): void {

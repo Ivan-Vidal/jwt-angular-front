@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IUserAuth } from '../models/userAuth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,12 @@ export class AuthService {
   
   constructor(private http: HttpClient) { }
 
-  authUser():Observable<any> {
-      return this.http.get<any>(`${this.urlBase}/user`, {withCredentials: true} );
+  authUser():Observable<IUserAuth> {
+      return this.http.get<IUserAuth>(`${this.urlBase}/user`, {withCredentials: true} );
     }
 
     logout() {
-      return this.http.post<any>(`${this.urlBase}/logout`, {}, {withCredentials: true} );
+      return this.http.post<IUserAuth>(`${this.urlBase}/logout`, {}, {withCredentials: true} );
 
     }
   }
