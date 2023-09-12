@@ -2,11 +2,12 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const useRoutes = require("./controllers/user")
 
-    mongoose.connect('mongodb+srv://Cluster77183:eWJ5bmFoR3Bm@cluster77183.ujj50fl.mongodb.net/?retryWrites=true&w=majority', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+//     mongoose.connect('mongodb+srv://Cluster77183:eWJ5bmFoR3Bm@cluster77183.ujj50fl.mongodb.net/?retryWrites=true&w=majority', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// })
 
 const routes = require('./routes/routes')
 

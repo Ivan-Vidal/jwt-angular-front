@@ -2,22 +2,27 @@ const router = require('express').Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
+const db = require('../connection')
 
 router.post('/register', async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(req.body.password, salt)
 
-    const user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: hashedPassword,
+    const q = "INSERT INTO users (`name`,`email`, `password`, `entry_date`) VALUES (?)";
+
+    const values = [
+        req.body.name,
+        req.body.email,
+        hashedPassword,
+        new Date(),
+    ]
+
+    db.query(q, [values], (err) => {
+        if (err) return res.json(err);
+
+        return res.status(200).json('user created successfully!');
     })
 
-    const result = await user.save()
-
-    const {password, ...data} = await result.toJSON()
-
-    res.send(data)
 })
 
 router.post('/login', async (req, res) => {

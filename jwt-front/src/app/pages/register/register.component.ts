@@ -21,8 +21,6 @@ export class RegisterComponent {
 
   ngOnInit() {
     this.createForm()
-    console.log(this.registerForm)
-    console.log(this.registerForm.controls)
   }
 
   createForm(): void {
@@ -33,26 +31,14 @@ export class RegisterComponent {
     });
 }
 
-formValid() {
-  if(this.registerForm.validator) {
-    return true
-  } else {
-    return false
-  }
-} 
-
 
   async onSubmit (form: IUser) {
       this.registerService.registerUser(form).subscribe(
         (result: IUser) =>  { 
           this.response = result
           this.sweetAlertS.success('Cadastro Realizado com Sucesso!','Cadastrado!')
-          setTimeout(() => {
             this.route.navigate(['/login'])
-          }, 3000);
         }
-        
       )
-      console.log(this.response)
   }
 }
