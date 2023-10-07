@@ -1,19 +1,17 @@
 const express = require('express')
-const mongoose = require('mongoose')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
-const useRoutes = require("./controllers/user")
+
+const routes = require('./routes/routes')
+const app = express()
 
 //     mongoose.connect('mongodb+srv://Cluster77183:eWJ5bmFoR3Bm@cluster77183.ujj50fl.mongodb.net/?retryWrites=true&w=majority', {
 //     useNewUrlParser: true,
 //     useUnifiedTopology: true
 // })
 
-const routes = require('./routes/routes')
-
-app = express()
-
 app.use(cookieParser())
+
 app.use(cors({
     credentials: true,
     origin: ['http://localhost:4200']

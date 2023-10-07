@@ -1,9 +1,9 @@
-const  db  = require("../connection");
+const db = require("../connection");
 
-const getUsers = (_,res) => {
+const getUsers = (_, res) => {
     const q = "SELECT * FROM users";
 
-    db.query(q, (err,data) => {
+    db.query(q, (err, data) => {
         if (err) return res.json(err);
 
         return res.status(200).json(data);
@@ -12,8 +12,7 @@ const getUsers = (_,res) => {
 
 module.exports = getUsers
 
-
-const addUsers = (req,res) => {
+const addUsers = (req, res) => {
     const q = "INSERT INTO user (`name`,`email`, `password`, `entry_date`) VALUES (?)";
 
     const values = [
@@ -29,5 +28,4 @@ const addUsers = (req,res) => {
         return res.status(200).json('user created successfully!');
     })
 }
-
 module.exports = addUsers
