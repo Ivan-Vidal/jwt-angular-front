@@ -37,7 +37,11 @@ export class RegisterComponent {
         (result: IUser) =>  { 
           this.response = result
           this.sweetAlertS.success('Cadastro Realizado com Sucesso!','Cadastrado!')
-            this.route.navigate(['/login'])
+            // this.route.navigate(['/login'])
+        }, 
+        error => {
+          this.sweetAlertS.error(error.error.msg, 'Erro ao realizar cadastro')
+
         }
       )
   }

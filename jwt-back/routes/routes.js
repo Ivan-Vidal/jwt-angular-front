@@ -3,32 +3,46 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const db = require('../connection')
+const addUsers = require('../controllers/user')
 
 router.post('/register', async (req, res) => {
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(req.body.password, salt)
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-    const q = "INSERT INTO users (`name`,`email`, `password`, `entry_date`) VALUES (?)";
-
+    const createUserProcedure = "CALL sp_createUser(?, ?, ?)";
     const values = [
         req.body.name,
         req.body.email,
-        hashedPassword,
-        new Date(),
-    ]
+        hashedPassword
+    ];
 
-    db.query(q, [values], (err) => {
-        if (err) return res.json(err);
-
-        return res.status(200).json('user created successfully!');
-    })
-
+    db.query(createUserProcedure, values, (err, result) => {
+        if (err) {
+            // Se ocorrer um erro, verifica se é devido ao usuário já existir
+            if (err.code === 'ER_SIGNAL_EXCEPTION' && err.sqlMessage === 'Usuário já cadastrado') {
+                return res.status(422).json({ msg: 'Por favor, utilize outro e-mail' });
+            } else {
+                // Se for outro tipo de erro, retorna uma resposta de erro genérica
+                return res.status(500).json({ msg: 'Erro ao criar usuário' });
+            }
+        } else {
+            // Se não houver erro, o usuário foi criado com sucesso
+            return res.status(200).json('Usuário criado com sucesso!');
+        }
+    });
 })
 
 router.post('/login', async (req, res) => {
-    const user = await User.findOne({email: req.body.email})
+    const user = await db.findOne({email: req.body.email})
 
-    if (!user) {
+    const query = await "SELECT  `email` FROM `users` AS `user` WHERE `user`.`email` = '(?)' LIMIT 1;`"
+
+  db.query(query, (err,data) => {
+    if (err) return res.json(err);
+
+    return res.status(200).json(data);
+})
+    if (!data) {
         return res.status(404).send({
             message: 'user not found'
         })
